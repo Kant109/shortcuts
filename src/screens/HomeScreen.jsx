@@ -28,18 +28,18 @@ export default function App(props) {
           style={styles.button}
           onPress={() => props.navigation.navigate("Rechercher par catégorie :", { categories: categories })}
         >
-          <Text>Catégorie</Text>
+          <Text style={styles.buttonText}>Catégorie</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => props.navigation.navigate("Rechercher par logiciel :", { software: software })}
         >
-          <Text>Logiciel</Text>
+          <Text style={styles.buttonText}>Logiciel</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.texte}>Ou bien :</Text>
       <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Ajouter un raccourci :")}>
-        <Text>Ajouter un raccouci</Text>
+        <Text style={styles.buttonText}>Ajouter un raccouci</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -63,9 +63,13 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 40,
+    backgroundColor: "#f4511e",
+    padding: 30,
     margin: 20,
     borderRadius: 16,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
   },
 });

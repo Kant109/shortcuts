@@ -12,7 +12,20 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: "Shortcuts",
+            headerStyle: {
+              backgroundColor: "#f4511e",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
         <Stack.Screen name="Rechercher par catégorie :" component={CategoryScreen} />
         <Stack.Screen name="Rechercher par logiciel :" component={LogicielScreen} />
         <Stack.Screen name="Ajouter un raccourci :" component={AjoutShortcutScreen} />
