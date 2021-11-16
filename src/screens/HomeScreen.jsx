@@ -5,6 +5,7 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 export default function App(props) {
   const [categories, setCategories] = useState([]);
   const [software, setSoftwares] = useState([]);
+  const [shortcuts, setShortcuts] = useState([]);
 
   useEffect(() => {
     console.log("fetch: " + process.env.API_URL + "categories");
@@ -17,6 +18,12 @@ export default function App(props) {
     fetch(process.env.API_URL + "software")
       .then((response) => response.json())
       .then((data) => setSoftwares(data["hydra:member"]))
+      .catch((error) => console.log(error));
+
+    console.log("fetch: " + process.env.API_URL + "shortcuts");
+    fetch(process.env.API_URL + "shortcuts")
+      .then((response) => response.json())
+      .then((data) => setShortcuts(data["hydra:member"]))
       .catch((error) => console.log(error));
   }, []);
 
@@ -38,7 +45,12 @@ export default function App(props) {
         </TouchableOpacity>
       </View>
       <Text style={styles.texte}>Ou bien :</Text>
-      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Ajouter un raccourci :")}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          props.navigation.navigate("Ajouter un raccourci :", { categories: categories, software: software })
+        }
+      >
         <Text style={styles.buttonText}>Ajouter un raccouci</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
