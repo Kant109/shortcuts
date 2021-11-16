@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 export default function CategoryScreen(props) {
@@ -14,36 +14,38 @@ export default function CategoryScreen(props) {
   const [shortcut, setShortcut] = useState([]);
 
   const shortcutJsx = shortcut.map((s) => (
-    <View key={s.id}>
-      <Text>{s.title}</Text>
-      <Text>{s.software.name}</Text>
+    <TouchableOpacity key={s.id} style={styles.card}>
       <View>
-        {s.categories.map((c) => (
-          <Text key={c.id}>{c.name}</Text>
-        ))}
+        <Text style={styles.titleCard}>{s.title}</Text>
+        <Text>{s.software.name}</Text>
+        <View>
+          {s.categories.map((c) => (
+            <Text key={c.id}>{c.name}</Text>
+          ))}
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   ));
 
   return (
     <View style={styles.menu}>
+      <Picker
+        selectedValue={soft}
+        onValueChange={function (itemValue, itemIndex) {
+          fetch(process.env.API_URL + "shortcuts?software.id=" + itemValue)
+            .then((response) => response.json())
+            .then((data) => setShortcut(data["hydra:member"]))
+            .catch((error) => console.log(error));
+          setSoft(itemValue);
+        }}
+        mode="dropdown"
+        style={styles.picker}
+      >
+        <Picker.Item label="Choisir un logiciel" value="Ici l'affichage des raccourcis" />
+        {softwareJsx}
+      </Picker>
       <ScrollView>
-        <Picker
-          selectedValue={soft}
-          onValueChange={function (itemValue, itemIndex) {
-            fetch(process.env.API_URL + "shortcuts?software.id=" + itemValue)
-              .then((response) => response.json())
-              .then((data) => setShortcut(data["hydra:member"]))
-              .catch((error) => console.log(error));
-            setSoft(itemValue);
-          }}
-          mode="dropdown"
-          style={styles.picker}
-        >
-          <Picker.Item label="Choisir un logiciel" value="Ici l'affichage des raccourcis" />
-          {softwareJsx}
-        </Picker>
-        {shortcutJsx}
+        <View style={styles.container}>{shortcutJsx}</View>
       </ScrollView>
     </View>
   );
@@ -61,5 +63,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "#666",
+  },
+  card: {
+    backgroundColor: "#f7b7a3",
+    marginBottom: 3,
+    borderWidth: 3,
+    borderColor: "#f4511e",
+    alignItems: "center",
+    borderRadius: 7,
+    padding: 5,
+    marginBottom: 15,
+  },
+  titleCard: {
+    fontSize: 18,
+  },
+  container: {
+    marginBottom: 20,
   },
 });
