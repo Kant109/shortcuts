@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 
-export default function App(props) {
+export default function HomeScreen(props) {
   const [categories, setCategories] = useState([]);
   const [software, setSoftwares] = useState([]);
   const [shortcuts, setShortcuts] = useState([]);

@@ -14,13 +14,19 @@ export default function CategoryScreen(props) {
   const [shortcut, setShortcut] = useState([]);
 
   const shortcutJsx = shortcut.map((s) => (
-    <TouchableOpacity key={s.id} style={styles.card}>
+    <TouchableOpacity
+      key={s.id}
+      style={styles.card}
+      onPress={() => props.navigation.navigate("ShortcutScreen", { shortcut: s })}
+    >
       <View>
         <Text style={styles.titleCard}>{s.title}</Text>
-        <Text>{s.software.name}</Text>
+        <Text style={styles.software}>{s.software.name}</Text>
         <View>
           {s.categories.map((c) => (
-            <Text key={c.id}>{c.name}</Text>
+            <Text key={c.id} style={styles.category}>
+              {c.name}
+            </Text>
           ))}
         </View>
       </View>
@@ -79,5 +85,23 @@ const styles = StyleSheet.create({
   },
   container: {
     marginBottom: 20,
+  },
+  software: {
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#0722e8",
+    backgroundColor: "#7a89f5",
+    borderRadius: 7,
+    padding: 2,
+    margin: 5,
+  },
+  category: {
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#e0f01d",
+    backgroundColor: "#f1fa81",
+    borderRadius: 7,
+    padding: 2,
+    margin: 5,
   },
 });
