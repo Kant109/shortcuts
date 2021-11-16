@@ -16,6 +16,27 @@ export default function DetailsShortcut(props) {
         <Text style={styles.title}>{shortcut.title}</Text>
         <Text style={styles.software}>{shortcut.software.name}</Text>
         <View>{categoriesShortcutJsx}</View>
+        <Text style={styles.card}>
+          <Text style={styles.txtGras}>Windows : </Text>
+          {shortcut.windows}
+        </Text>
+        <Text style={styles.card}>
+          <Text style={styles.txtGras}>Mac : </Text>
+          {shortcut.macos}
+        </Text>
+        <Text style={styles.card}>
+          <Text style={styles.txtGras}>Linux : </Text>
+          {shortcut.linux}
+        </Text>
+        <Text style={styles.card}>Ici image mais plus tard</Text>
+        <View style={styles.card}>
+          <Text style={styles.txtGras}>Contexte : </Text>
+          <Text>{shortcut.context}</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.txtGras}>Description : </Text>
+          <Text>{shortcut.description}</Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -24,6 +45,7 @@ export default function DetailsShortcut(props) {
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
+    textAlign: "center",
   },
   software: {
     textAlign: "center",
@@ -42,5 +64,14 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 2,
     margin: 5,
+  },
+  txtGras: {
+    fontWeight: "bold",
+  },
+  card: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: 15,
   },
 });
