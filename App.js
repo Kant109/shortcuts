@@ -22,12 +22,16 @@ const styleNav = {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={styleNav}>
         <Stack.Screen name="Shortcuts" component={HomeScreen} options={styleNav} />
-        <Stack.Screen name="Rechercher par catégorie :" component={CategoryScreen} options={styleNav} />
-        <Stack.Screen name="Rechercher par logiciel :" component={LogicielScreen} options={styleNav} />
-        <Stack.Screen name="Ajouter un raccourci :" component={AjoutShortcutScreen} options={styleNav} />
-        <Stack.Screen name="ShortcutScreen" component={DetailsShortcut} options={styleNav} />
+        <Stack.Screen name="Rechercher par catégorie :" component={CategoryScreen} />
+        <Stack.Screen name="Rechercher par logiciel :" component={LogicielScreen} />
+        <Stack.Screen name="Ajouter un raccourci :" component={AjoutShortcutScreen} />
+        <Stack.Screen
+          name="ShortcutScreen"
+          component={DetailsShortcut}
+          options={({ route }) => ({ title: route.params.shortcut.title })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

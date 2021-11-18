@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     textAlign: "center",
+    fontWeight: "bold",
   },
   software: {
     textAlign: "center",
