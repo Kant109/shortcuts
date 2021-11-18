@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ScrollView, Text, View } from "react-native";
+import { StyleSheet, ScrollView, Text, View, Image } from "react-native";
 
 export default function DetailsShortcut(props) {
   const { shortcut } = props.route.params;
@@ -28,7 +28,7 @@ export default function DetailsShortcut(props) {
           <Text style={styles.txtGras}>Linux : </Text>
           {shortcut.linux}
         </Text>
-        <Text style={styles.card}>Ici image mais plus tard</Text>
+        {/* <Image source={{ uri: "http://shortcuts.api.pierre-jehan.com/media_objects/" }} /> */}
         <View style={styles.card}>
           <Text style={styles.txtGras}>Contexte : </Text>
           <Text>{shortcut.context}</Text>
