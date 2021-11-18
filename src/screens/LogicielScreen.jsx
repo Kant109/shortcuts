@@ -82,9 +82,11 @@ const styles = StyleSheet.create({
   },
   titleCard: {
     fontSize: 18,
+    textAlign: "center",
   },
   container: {
     marginBottom: 20,
+    width: 320,
   },
   software: {
     textAlign: "center",
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 2,
     margin: 5,
+    width: 300,
   },
   category: {
     textAlign: "center",
@@ -103,5 +106,6 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 2,
     margin: 5,
+    width: 300,
   },
 });
