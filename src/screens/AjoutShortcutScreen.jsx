@@ -16,16 +16,17 @@ export default function AjoutShortcutScreen(props) {
     .map((s) => <Picker.Item key={s.id} label={s.name} value={s["@id"]} />);
 
   const [soft, setSoft] = useState("Unknown");
-  const [windows, setWindows] = useState([]);
+  const [title, setTitle] = useState("");
+  const [windows, setWindows] = useState();
   const [mac, setMac] = useState("");
   const [linux, setLinux] = useState("");
   const [context, setContext] = useState("");
-  const [description, setDescription] = useState([]);
+  const [description, setDescription] = useState("");
 
   return (
     <View style={styles.menu}>
       <ScrollView>
-        <Text style={styles.text}>Logiciel</Text>
+        <Text style={styles.text}>Catégories</Text>
         <Picker
           selectedValue={category}
           onValueChange={(value, index) => setCategory(value)}
@@ -35,7 +36,7 @@ export default function AjoutShortcutScreen(props) {
           <Picker.Item label="Choisir une catégorie" value="Unknown" />
           {categoriesJsx}
         </Picker>
-        <Text style={styles.text}>Catégories</Text>
+        <Text style={styles.text}>Logiciel</Text>
         <Picker
           selectedValue={soft}
           onValueChange={(value, index) => setSoft(value)}
@@ -45,6 +46,10 @@ export default function AjoutShortcutScreen(props) {
           <Picker.Item label="Choisir un logiciel" value="Unknown" />
           {softwareJsx}
         </Picker>
+        <View style={styles.cardForm}>
+          <Text style={styles.txtForm}>Titre</Text>
+          <TextInput style={styles.saisie} onChangeText={setTitle}></TextInput>
+        </View>
         <View style={styles.cardForm}>
           <Text style={styles.txtForm}>Windows</Text>
           <TextInput style={styles.saisie} onChangeText={setWindows}></TextInput>
@@ -69,7 +74,7 @@ export default function AjoutShortcutScreen(props) {
           onPress={function () {
             console.log("bonjoue");
             const shortcut = {
-              title: "test Quentin",
+              title: title,
               windows: windows,
               macos: mac,
               linux: linux,
@@ -78,7 +83,6 @@ export default function AjoutShortcutScreen(props) {
               software: soft,
               categories: [category],
             };
-            console.log(shortcut);
             fetch(process.env.API_URL + "shortcuts", {
               method: "POST",
               headers: {
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     marginTop: 20,
+    paddingBottom: 40,
   },
   picker: {
     marginVertical: 10,
