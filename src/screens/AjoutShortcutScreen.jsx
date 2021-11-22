@@ -9,13 +9,13 @@ export default function AjoutShortcutScreen(props) {
     .sort((c1, c2) => c1.name.localeCompare(c2.name))
     .map((c) => <Picker.Item key={c.id} label={c.name} value={c["@id"]} />);
 
-  const [category, setCategory] = useState("Unknown");
+  const [category, setCategory] = useState([]);
 
   const softwareJsx = software
     .sort((c1, c2) => c1.name.localeCompare(c2.name))
     .map((s) => <Picker.Item key={s.id} label={s.name} value={s["@id"]} />);
 
-  const [soft, setSoft] = useState("Unknown");
+  const [soft, setSoft] = useState([]);
   const [title, setTitle] = useState("");
   const [windows, setWindows] = useState();
   const [mac, setMac] = useState("");
@@ -24,8 +24,8 @@ export default function AjoutShortcutScreen(props) {
   const [description, setDescription] = useState("");
 
   return (
-    <View style={styles.menu}>
-      <ScrollView>
+    <ScrollView>
+      <View style={styles.menu}>
         <Text style={styles.text}>Catégories</Text>
         <Picker
           selectedValue={category}
@@ -69,10 +69,9 @@ export default function AjoutShortcutScreen(props) {
           <TextInput placeholder="Description" onChangeText={setDescription}></TextInput>
         </View>
         <Button
-          // color="#f4511e"
+          color="#f4511e"
           title="Ajouter"
           onPress={function () {
-            console.log("bonjoue");
             const shortcut = {
               title: title,
               windows: windows,
@@ -96,8 +95,8 @@ export default function AjoutShortcutScreen(props) {
               .catch((err) => console.log(err));
           }}
         />
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

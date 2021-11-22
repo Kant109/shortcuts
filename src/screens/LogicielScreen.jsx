@@ -34,26 +34,26 @@ export default function CategoryScreen(props) {
   ));
 
   return (
-    <View style={styles.menu}>
-      <Picker
-        selectedValue={soft}
-        onValueChange={function (itemValue, itemIndex) {
-          fetch(process.env.API_URL + "shortcuts?software.id=" + itemValue)
-            .then((response) => response.json())
-            .then((data) => setShortcut(data["hydra:member"]))
-            .catch((error) => console.log(error));
-          setSoft(itemValue);
-        }}
-        mode="dropdown"
-        style={styles.picker}
-      >
-        <Picker.Item label="Choisir un logiciel" value="Ici l'affichage des raccourcis" />
-        {softwareJsx}
-      </Picker>
-      <ScrollView>
+    <ScrollView>
+      <View style={styles.menu}>
+        <Picker
+          selectedValue={soft}
+          onValueChange={function (itemValue, itemIndex) {
+            fetch(process.env.API_URL + "shortcuts?software.id=" + itemValue)
+              .then((response) => response.json())
+              .then((data) => setShortcut(data["hydra:member"]))
+              .catch((error) => console.log(error));
+            setSoft(itemValue);
+          }}
+          mode="dropdown"
+          style={styles.picker}
+        >
+          <Picker.Item label="Choisir un logiciel" value="Ici l'affichage des raccourcis" />
+          {softwareJsx}
+        </Picker>
         <View style={styles.container}>{shortcutJsx}</View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

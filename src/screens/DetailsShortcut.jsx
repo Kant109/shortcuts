@@ -35,7 +35,7 @@ export default function DetailsShortcut(props) {
               ? {
                   uri: process.env.API_URL + shortcut.image.contentUrl,
                 }
-              : require("../../assets/DSC09869.jpg")
+              : require("../../assets/default.jpeg")
           }
         />
         <View style={styles.card}>
