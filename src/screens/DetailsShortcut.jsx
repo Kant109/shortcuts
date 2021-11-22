@@ -28,7 +28,16 @@ export default function DetailsShortcut(props) {
           <Text style={styles.txtGras}>Linux : </Text>
           {shortcut.linux}
         </Text>
-        {/* <Image source={{ uri: "http://shortcuts.api.pierre-jehan.com/media_objects/" }} /> */}
+        <Image
+          style={styles.shortcutImg}
+          source={
+            shortcut.image
+              ? {
+                  uri: process.env.API_URL + shortcut.image.contentUrl,
+                }
+              : require("../../assets/DSC09869.jpg")
+          }
+        />
         <View style={styles.card}>
           <Text style={styles.txtGras}>Contexte : </Text>
           <Text>{shortcut.context}</Text>
@@ -74,5 +83,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     padding: 15,
+  },
+  shortcutImg: {
+    width: 380,
+    height: 300,
   },
 });
