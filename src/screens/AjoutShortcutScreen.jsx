@@ -159,7 +159,4 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: "center",
   },
-  // btn: {
-  //   color: "#f4511e",
-  // },
 });

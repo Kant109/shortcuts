@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import CardShortcut from "../components/CardShortcut";
 
 export default function CategoryScreen(props) {
   const { categories } = props.route.params;
@@ -14,23 +15,11 @@ export default function CategoryScreen(props) {
   const [shortcut, setShortcut] = useState([]);
 
   const shortcutJsx = shortcut.map((s) => (
-    <TouchableOpacity
+    <CardShortcut
       key={s.id}
-      style={styles.card}
+      shortcut={s}
       onPress={() => props.navigation.navigate("ShortcutScreen", { shortcut: s })}
-    >
-      <View>
-        <Text style={styles.titleCard}>{s.title}</Text>
-        <Text style={styles.software}>{s.software.name}</Text>
-        <View>
-          {s.categories.map((c) => (
-            <Text key={c.id} style={styles.category}>
-              {c.name}
-            </Text>
-          ))}
-        </View>
-      </View>
-    </TouchableOpacity>
+    />
   ));
 
   return (
