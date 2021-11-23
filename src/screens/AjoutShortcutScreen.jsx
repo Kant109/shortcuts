@@ -1,9 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { StyleSheet, View, Text, TextInput, ScrollView, Button } from "react-native";
+import { StyleSheet, View, Text, TextInput, ScrollView, Button, Platform, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 export default function AjoutShortcutScreen(props) {
   const { categories, software } = props.route.params;
+
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const categoriesJsx = categories
     .sort((c1, c2) => c1.name.localeCompare(c2.name))
@@ -16,6 +45,7 @@ export default function AjoutShortcutScreen(props) {
     .map((s) => <Picker.Item key={s.id} label={s.name} value={s["@id"]} />);
 
   const [soft, setSoft] = useState([]);
+
   const [title, setTitle] = useState("");
   const [windows, setWindows] = useState();
   const [mac, setMac] = useState("");
@@ -68,10 +98,35 @@ export default function AjoutShortcutScreen(props) {
         <View style={styles.description}>
           <TextInput placeholder="Description" onChangeText={setDescription}></TextInput>
         </View>
+        <View style={styles.shortcutImageContainer}>
+          <Text style={styles.shortcutPickImage} onPress={pickImage}>
+            Choisir une image
+          </Text>
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                borderRadius: 10,
+                marginBottom: 20,
+                width: 250,
+                height: 250,
+              }}
+            />
+          )}
+        </View>
         <Button
           color="#f4511e"
           title="Ajouter"
           onPress={function () {
+            // const { img } = fetch(process.env.API_URL + "media_objects", {
+            //   method: "POST",
+            //   headers: {
+            //     Accept: "application/json",
+            //     "Content-Type": "application/json",
+            //   },
+            //   body: JSON.stringify(),
+            // });
+
             const shortcut = {
               title: title,
               windows: windows,
@@ -158,5 +213,19 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     height: 100,
     justifyContent: "center",
+  },
+  shortcutImageContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  shortcutPickImage: {
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 20,
+    width: "auto",
+    backgroundColor: "#f4511e",
+    borderRadius: 10,
+    fontWeight: "bold",
+    color: "white",
   },
 });
